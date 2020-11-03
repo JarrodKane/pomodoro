@@ -1,3 +1,11 @@
+## Pomodoro
+
+styled components
+
+- [ ] As timer progresses the background color changes/grows
+- [ ] Display timer
+- [ ] Modal popup with adjustments for timer
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
