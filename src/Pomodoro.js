@@ -2,11 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 export default function Pomodoro() {
-  const [timerRunning, settimerRunning] = useState(false);
-  const [timeLeft, setTimeLeft] = useState({
-    mins: 25,
-    secs: 0,
-  });
+  const [timerRunning, setTimerRunning] = useState();
+  const [timeLeft, setTimeLeft] = useState();
   const [totalTime, setTotalTime] = useState();
   const [userDef, setUserDef] = useState({
     pomo: 25,
@@ -14,44 +11,45 @@ export default function Pomodoro() {
   });
 
   // Takes the time given by the user, and sets it in the timer
-  const calculateTimeLeft = () => {
-    const pomoTime = timeLeft;
-
-    let time = {
-      mins: pomoTime,
-      secs: Math.floor((pomoTime / 1000) % 60),
-    };
-
-    if (time.secs <= 0) {
-      time.mins = time.mins - 1;
-      time.secs = 60;
+  const calculateTimeLeft = (timeGiven = 25) => {
+    const time = timeGiven - 1;
+    console.log(time);
+    if (time <= 0) {
+      setTimerRunning(false);
+      return 0;
     } else {
-      time.secs = time.secs - 1;
+      return time;
     }
-
-    //setInterval(() => {
-    //  setTimeLeft({ mins: timeLeft.mins, secs: timeLeft.secs });
-    //});
-    return time;
   };
 
+  // This gets called each time there is an update, it then counts a second
+  // before setting the time to be one less
+  // It checks to make sure the app is running first, just incase it has been
+  // paused
   useEffect(() => {
-    console.log("CALLEDDSD");
+    if (timerRunning) {
+      const timer = setTimeout(() => {
+        setTimeLeft(calculateTimeLeft(timeLeft));
+      }, 1000);
 
-    const timer = setTimeout(() => {
-      console.log(timeLeft);
-      setTimeLeft(calculateTimeLeft(timeLeft));
-    }, 1000);
-
-    return () => clearTimeout(timer);
+      return () => clearTimeout(timer);
+    }
   });
+
+  //Starts the timer running
+  const handleStart = () => {
+    setTimerRunning(true);
+  };
+
+  //TODO - Need to make a setTime, so that this gets passed into state, and
+  //then gets passed into CalculateTimeLeft
 
   return (
     <div>
       <div>Title</div>
-      <div>sadasdsd</div>
+      <div>{timeLeft}</div>
       <div>
-        <button>Start</button>
+        <button onClick={handleStart}>Start</button>
         <button>Pause</button>
         <button>Stop</button>
       </div>
