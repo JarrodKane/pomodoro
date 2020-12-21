@@ -1,10 +1,18 @@
-## Pomodoro
+# Pomodoro
 
-styled components
+This is a simple Pomodoro timer that has been made to gain a greater understanding of React custom Hooks
+
+## Moudles used
+
+- styled components
+- Create-react-app
+
+## TODO
 
 - [ ] As timer progresses the background color changes/grows
-- [ ] Display timer
-- [ ] Modal popup with adjustments for timer
+- [x] Display timer
+- [ ] Adjustments for timer
+- [ ] Testing
 
 # Getting Started with Create React App
 

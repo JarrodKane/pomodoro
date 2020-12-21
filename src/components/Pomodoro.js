@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 //import styled from "styled-components";
 
 import useInterval from "../hooks/useIneterval";
@@ -29,7 +29,11 @@ export default function Pomodoro() {
   //Starts the timer running
   const handleStart = () => {
     setTimerRunning(true);
-    setCount(changeToSecs(useSesh));
+    if (count === 0) {
+      setCount(changeToSecs(useSesh));
+    } else {
+      setCount(count);
+    }
   };
 
   // Pauses the timer
@@ -43,9 +47,11 @@ export default function Pomodoro() {
     setTimerRunning(true);
   };
 
+  // TODO: if start is clicked then the start button will be changed to be a pause button, and it will cause pause if clicked, and vice-versa
+
   return (
     <div>
-      <div>Title</div>
+      <h1>Pomodoro Timer</h1>
       <div>
         <TimeDisplay time={count} />
       </div>
