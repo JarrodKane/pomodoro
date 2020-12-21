@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 //import styled from "styled-components";
 
 import useInterval from "../hooks/useIneterval";
+import TimeDisplay from "./TimeDisplay";
 
 export default function Pomodoro() {
   const [timerRunning, setTimerRunning] = useState(false);
@@ -11,32 +12,45 @@ export default function Pomodoro() {
     break: 5,
   });
 
+  let session = 25;
+
   useInterval(() => {
     // Your custom logic here
-    setCount(count + 1);
+    setCount(count - 1);
   }, timerRunning);
 
   //Starts the timer running
   const handleStart = () => {
     setTimerRunning(true);
+    setCount(changeToSecs(session));
   };
 
   const handleStop = () => {
     setTimerRunning(false);
   };
 
-  //TODO - Need to make a setTime, so that this gets passed into state, and
-  //then gets passed into CalculateTimeLeft
+  const handleRestart = () => {
+    setCount(changeToSecs(session));
+    setTimerRunning(true);
+  };
 
   return (
     <div>
       <div>Title</div>
-      <div>{count}</div>
+      <div>
+        <TimeDisplay time={count} />
+      </div>
       <div>
         <button onClick={handleStart}>Start</button>
-        <button>Pause</button>
         <button onClick={handleStop}> Stop</button>
+        <button onClick={handleRestart}> restart</button>
+      </div>
+      <div>
+        <h2>Session Length</h2>
+        <p>Length:</p>
       </div>
     </div>
   );
 }
+
+const changeToSecs = (secs) => secs * 60;
