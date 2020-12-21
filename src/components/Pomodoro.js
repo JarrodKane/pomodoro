@@ -3,34 +3,43 @@ import React, { useState, useEffect } from "react";
 
 import useInterval from "../hooks/useIneterval";
 import TimeDisplay from "./TimeDisplay";
+import { changeToSecs } from "../helpers/timeChange";
 
 export default function Pomodoro() {
   const [timerRunning, setTimerRunning] = useState(false);
   const [count, setCount] = useState(0);
-  const [userDef, setUserDef] = useState({
-    pomo: 25,
-    break: 5,
-  });
+  const [downTime, setDownTime] = useState(false);
+  const [useSesh, setUseSesh] = useState(25);
+  const [breakTime, setsetbreakTime] = useState(5);
 
-  let session = 25;
-
+  // Once it hits the last second, it will instally give you a 5 min break
+  // If it was already in downtime it'll swap right across to a 25min
   useInterval(() => {
-    // Your custom logic here
-    setCount(count - 1);
+    if (count === 1 && downTime === false) {
+      setDownTime(true);
+      setCount(changeToSecs(breakTime));
+    } else if (count === 1 && downTime === true) {
+      setDownTime(false);
+      setCount(changeToSecs(useSesh));
+    } else {
+      setCount(count - 1);
+    }
   }, timerRunning);
 
   //Starts the timer running
   const handleStart = () => {
     setTimerRunning(true);
-    setCount(changeToSecs(session));
+    setCount(changeToSecs(useSesh));
   };
 
+  // Pauses the timer
   const handleStop = () => {
     setTimerRunning(false);
   };
 
+  // Resets the timer to the set session for the user
   const handleRestart = () => {
-    setCount(changeToSecs(session));
+    setCount(changeToSecs(useSesh));
     setTimerRunning(true);
   };
 
@@ -52,5 +61,3 @@ export default function Pomodoro() {
     </div>
   );
 }
-
-const changeToSecs = (secs) => secs * 60;

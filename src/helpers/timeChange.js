@@ -1,2 +1,5 @@
 // this changes the time from seconds to minutes
-const timeChange = (secs) => secs / 60;
+
+const changeToSecs = (secs) => secs * 60;
+
+export { changeToSecs };
