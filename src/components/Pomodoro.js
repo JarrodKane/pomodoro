@@ -47,6 +47,15 @@ export default function Pomodoro() {
     setTimerRunning(true);
   };
 
+  const handleChangeTime = (e) => {
+    const value = e.target.className;
+    if (value === "+") {
+      setUseSesh(useSesh + 1);
+    } else {
+      setUseSesh(useSesh - 1);
+    }
+  };
+
   // TODO: if start is clicked then the start button will be changed to be a pause button, and it will cause pause if clicked, and vice-versa
 
   return (
@@ -62,7 +71,15 @@ export default function Pomodoro() {
       </div>
       <div>
         <h2>Session Length</h2>
-        <p>Length:</p>
+        <div>
+          <button className="+" onClick={handleChangeTime}>
+            +
+          </button>
+          <p>{useSesh}</p>
+          <button className="-" onClick={handleChangeTime}>
+            -
+          </button>
+        </div>
       </div>
     </div>
   );
