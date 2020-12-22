@@ -1,9 +1,33 @@
 import React, { useState } from "react";
-//import styled from "styled-components";
+import styled from "styled-components";
 
-import useInterval from "../hooks/useIneterval";
 import TimeDisplay from "./TimeDisplay";
 import { changeToSecs } from "../helpers/timeChange";
+
+// This styled component takes in a prop to display the background differntly
+// TODO: Have it display the colors different based on the countdown seconds
+const Pomo = styled.div`
+   ${(props) =>
+     props.run
+       ? "background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);"
+       : "background: linear-gradient(-45deg, #33ff7c, #e233ff, #C70039 ,  #FF5733 );"};
+
+background-size: 400% 400%;
+animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+0% {
+  background-position: 0% 50%;
+}
+50% {
+  background-position: 100% 50%;
+}
+100% {
+  background-position: 0% 50%;
+}
+
+`;
 
 export default function Pomodoro() {
   const [timerRunning, setTimerRunning] = useState(false);
@@ -11,20 +35,6 @@ export default function Pomodoro() {
   const [downTime, setDownTime] = useState(false);
   const [useSesh, setUseSesh] = useState(25);
   const [breakTime, setsetbreakTime] = useState(5);
-
-  // Once it hits the last second, it will instally give you a 5 min break
-  // If it was already in downtime it'll swap right across to a 25min
-  useInterval(() => {
-    if (count === 1 && downTime === false) {
-      setDownTime(true);
-      setCount(changeToSecs(breakTime));
-    } else if (count === 1 && downTime === true) {
-      setDownTime(false);
-      setCount(changeToSecs(useSesh));
-    } else {
-      setCount(count - 1);
-    }
-  }, timerRunning);
 
   //Starts the timer running
   const handleStart = () => {
@@ -57,10 +67,18 @@ export default function Pomodoro() {
   };
 
   return (
-    <div>
+    <Pomo run={timerRunning}>
       <h1>Pomodoro Timer</h1>
       <div>
-        <TimeDisplay time={count} />
+        <TimeDisplay
+          time={count}
+          downTime={downTime}
+          setDownTime={setDownTime}
+          setCount={setCount}
+          timerRunning={timerRunning}
+          breakTime={breakTime}
+          useSesh={useSesh}
+        />
       </div>
       <div>
         {!timerRunning ? (
@@ -83,6 +101,6 @@ export default function Pomodoro() {
           </button>
         </div>
       </div>
-    </div>
+    </Pomo>
   );
 }

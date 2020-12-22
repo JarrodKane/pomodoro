@@ -7,11 +7,15 @@ This is a simple Pomodoro timer that has been made to gain a greater understandi
 - styled components
 - Create-react-app
 
+Helpful links:
+-For css backgrounds [https://codepen.io/P1N2O/pen/pyBNzX](https://codepen.io/P1N2O/pen/pyBNzX)
+-For custom hook useInterval [https://overreacted.io/making-setinterval-declarative-with-react-hooks/](https://overreacted.io/making-setinterval-declarative-with-react-hooks/)
+
 ## TODO
 
 - [ ] As timer progresses the background color changes/grows
 - [x] Display timer
-- [ ] Adjustments for timer
+- [x] Adjustments for timer
 - [ ] Testing
 
 # Getting Started with Create React App
