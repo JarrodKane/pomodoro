@@ -56,8 +56,6 @@ export default function Pomodoro() {
     }
   };
 
-  // TODO: if start is clicked then the start button will be changed to be a pause button, and it will cause pause if clicked, and vice-versa
-
   return (
     <div>
       <h1>Pomodoro Timer</h1>
@@ -65,8 +63,12 @@ export default function Pomodoro() {
         <TimeDisplay time={count} />
       </div>
       <div>
-        <button onClick={handleStart}>Start</button>
-        <button onClick={handleStop}> Stop</button>
+        {!timerRunning ? (
+          <button onClick={handleStart}>Start</button>
+        ) : (
+          <button onClick={handleStop}> Stop</button>
+        )}
+
         <button onClick={handleRestart}> restart</button>
       </div>
       <div>
